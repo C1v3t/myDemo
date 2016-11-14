@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    html, body, div {
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        width: 100%;
+        background: url(img/skinPeeler_images/1.jpg) no-repeat;
+        background-size:cover;
+        position:relative;
+    }
+    #box {
+        width: 100%;
+        height: 180px;
+        background: rgba(255, 255, 255, 0.3);
+        /*padding-top: 50px;*/
+        text-align: center;
+    }
+    #box img {
+        width: 200px;
+        cursor: pointer;
+    }
+</style>
+<body>
+<div id="box">
+    <img id="pic1" src="img/skinPeeler_images/1.jpg" alt="">
+    <img id="pic2" src="img/skinPeeler_images/2.jpg" alt="">
+    <img id="pic3" src="img/skinPeeler_images/3.jpg" alt="">
+    <img id="pic4" src="img/skinPeeler_images/4.jpg" alt="">
+    <img id="pic5" src="img/skinPeeler_images/5.jpg" alt="">
+</div>
+<script>
+    //获取页面元素
+  var box=getId("box")
+    box.onclick = function(ev){
+        var ev = ev || window.event;
+        var target = ev.target || ev.srcElement;
+        if(target.nodeName.toLowerCase() == "img"){
+            document.body.style.backgroundImage = "url(" + target.src + ")";
+        }
+    }
+    function getId(id){
+        return document.getElementById(id)
+    }
+</script>
+</body>
+</html>

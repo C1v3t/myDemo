@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    body,ul,li{
+        margin: 0;
+        padding: 0;
+        background-color: #ccc;
+    }
+    ul,li{
+        list-style: none;
+    }
+    #box{
+        position: relative;
+        width: 100%;
+        height: 400px;
+        margin:50px auto;
+        border: 1px solid red;
+        overflow: hidden;
+    }
+    #box li{
+        position: absolute;
+        height: 400px;
+    }
+    .explain{
+        text-align: center;
+        color:white;
+    }
+</style>
+<body>
+<div id="box">
+    <ul>
+        <li><img src="img/accordion_images/1.jpg" alt=""/></li>
+        <li id = "one"><img src="img/accordion_images/2.jpg" alt=""/></li>
+        <li><img src="img/accordion_images/3.jpg" alt=""/></li>
+        <li><img src="img/accordion_images/4.jpg" alt=""/></li>
+        <li><img src="img/accordion_images/5.jpg" alt=""/></li>
+    </ul>
+</div>
+<div class = "explain">
+    <h1>手风琴</h1>
+    <p>将鼠标在图片处来回滑动会获得手风琴效果</p>
+    <p>这是用原生js写的特效,滑动干脆利落不留痕</p>
+</div>
+
+
+<script>
+
+    var a = 800;
+    var w = 1225;
+    var config = [
+        {
+            width: 1225,
+            top: 0,
+            left: 0,
+            opacity: 1,
+            zIndex: 0
+        },
+        {
+            width:  1225,
+            top: 0,
+            left: 1225/5,
+            opacity: 1,
+            zIndex: 1
+        },
+        {
+            width:  1225,
+            top: 0,
+            left: 1225*2/5,
+            opacity: 1,
+            zIndex: 2
+        },
+        {
+            width:  1225,
+            top: 0,
+            left: 1225*3/5,
+            opacity: 1,
+            zIndex: 3
+        },
+        {
+            width:  1225,
+            top: 0,
+            left: 1225*4/5,
+            opacity: 1,
+            zIndex: 4
+        }
+    ];
+    //获取元素 box,ul li
+    var box = document.getElementById("box");
+    var one = document.getElementById("one");
+
+    var ul = box.children[0];
+    var lis = ul.children;
+    //给每个li添加鼠标移出事件，让所有li恢复默认值
+    for (var i = 0; i < lis.length; i++) {
+        animate(lis[i],config[i]);
+    }
+
+    for (var i = 0; i < lis.length; i++) {
+        lis[i].index = i;
+        lis[i].onmouseover = function(){
+            for (var j = 0; j < lis.length; j++) {
+                if(j<=this.index){
+                    animate(lis[j],{"left":parseInt((box.offsetWidth-a)*(j)/4)});
+                }else{
+                    animate(lis[j],{"left":parseInt((box.offsetWidth-a)*(j)/4+(a-(box.offsetWidth-a)/4))});
+                }
+            }
+        }
+        lis[i].onmouseout = function(){
+            for (var i = 0; i < lis.length; i++) {
+                animate(lis[i],config[i]);
+            }
+        }
+    }
+
+    //待调用函数
+    function animate(tag,json,fn){
+        clearInterval(tag.timer);
+        tag.timer = setInterval(
+                function(){
+                    var flag = true;
+                    for(var key in json){
+                        if(key=="opacity"){
+                            var leader = getStyle(tag,key)*10||0;
+                            var target = json[key]*10;
+                            var step = ( target - leader ) / 10;
+                            if(step>0){
+                                step = Math.ceil(step);
+                            }else{
+                                step = Math.floor(step);
+                            }
+
+                            leader = leader+step;
+                            tag.style[key] = leader/10;
+                            if(leader!=target){
+                                flag = false;
+
+                            }
+                        }else if(key=="zIndex"){
+                            tag.style[key] = json[key];
+                        }else{
+                            var leader = parseInt(getStyle(tag,key))||0;
+                            var target = json[key];
+                            var step = ( target - leader ) / 10;
+                            if(step>0){
+                                step = Math.ceil(step);
+                            }else{
+                                step = Math.floor(step);
+                            }
+
+                            leader = leader+step;
+                            tag.style[key] = leader+"px";
+                            if(leader!=target){
+                                flag = false;
+
+                            }
+                        }
+                        //console.log(leader);
+                    }
+                    if(flag){
+                        clearInterval(tag.timer);
+                        if(typeof fn=="function"){
+                            fn();
+                        }
+                    }
+                },17
+        );
+    }
+    function getStyle(tag, attr) {
+        if (tag.currentStyle) {
+            return tag.currentStyle[attr];
+        } else {
+            return getComputedStyle(tag, null)[attr];
+        }
+    }
+</script>
+</body>
+</html>

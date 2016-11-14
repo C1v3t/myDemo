@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>c3动画-01</title>
+</head>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            body{
+                height:100%;
+            }
+            h1{
+                background-color: #ccc;
+                text-align: center;
+                height:50px;
+                line-height: 50px;
+                margin:60px 0;
+            }
+            ul,li{
+                list-style: none;
+                margin-right: 50px;
+            }
+            ul li:last-child{
+                margin-right:0;
+            }
+            ul{
+                width:100%;
+                min-height: 150px;
+                text-align: center;
+            }
+           li{
+               display: inline-block;
+           }
+            .share1 li,.share2 li{
+                transition:all 0.6s ease-in-out;
+            }
+            .share1 li:hover{
+                transform:rotate(360deg) scale(1.2)
+            }
+            .share2 li:hover{
+                transform:rotate(-360deg) scale(0.7)
+            }
+            img{
+            	width: 50%;
+            }
+        </style>
+<body>
+        <h1>顺时针旋转360度，放大1.2倍</h1>
+        <ul class='share1'>
+            <li><img src="img/rotate_images/share1.png" alt=""></li>
+            <li><img src="img/rotate_images/share2.png" alt=""></li>
+            <li><img src="img/rotate_images/share3.png" alt=""></li>
+            <li><img src="img/rotate_images/share4.png" alt=""></li>
+            <li><img src="img/rotate_images/share5.png" alt=""></li>
+            <li><img src="img/rotate_images/share6.png" alt=""></li>
+        </ul>
+        <h1>逆时针旋转360度，缩小0.7倍</h1>
+        <ul class='share2'>
+            <li><img src="img/rotate_images/share7.png" alt=""></li>
+            <li><img src="img/rotate_images/share8.png" alt=""></li>
+            <li><img src="img/rotate_images/share9.png" alt=""></li>
+            <li><img src="img/rotate_images/share10.png" alt=""></li>
+            <li><img src="img/rotate_images/share11.png" alt=""></li>
+            <li><img src="img/rotate_images/share12.png" alt=""></li>
+        </ul>
+</body>
+</html>

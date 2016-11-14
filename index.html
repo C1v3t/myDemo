@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <TITLE>宋健的作品 </TITLE>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="css/demo.css" type="text/css">
+    <link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="css/swiper-3.3.1.min.css" type="text/css">
+    <style>
+        html, body {
+            position: relative;
+            height: 100%;
+        }
+
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color:#000;
+            margin: 0;
+            padding: 0;
+        }
+        /*树的控制*/
+        .container {
+            padding-top: 0px;
+            position: fixed;
+            z-index: 100;
+
+        }
+        .container #treeDemo {
+            margin-top:0;
+        }
+        .container .buttons {
+            margin:0;
+            padding:0;
+            text-align:center;
+            border-right:1px solid black;
+            background-color: #f0f6e4;
+        }
+        /*引入部分*/
+        .mySwiper{
+            padding-left: 220px;
+        }
+        iframe {
+            width:100%;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="js/swiper-3.3.1.jquery.min.js"></script>
+    <script type="text/javascript" src="js/swiper-3.3.1.min.js"></script>
+    <SCRIPT LANGUAGE="JavaScript">
+        var zTreeObj;
+        // zTree 的参数配置
+        var setting = {};
+        // zTree 的数据属性
+        var zNodes = [
+            {name:"文件夹下面节点是可以点击的哦！", open:true, children:[
+                {name:"原生js写的特效",open:true,
+                    children:[
+                        {name:"斑马条纹"},
+                        {name:"知识预览"},
+                        {name:"换肤"},
+                        {name:"放大镜"},
+                        {name:"手风琴"}
+                    ]
+                },
+                {name:"html5和css3写的特效", open:true,
+                    children:[
+                        {name:"3D旋转木马"},
+                        {name:"2D旋转"},
+                        {name:"360Demo"}
+                    ]
+                }
+            ]}
+        ];
+        //
+        $(document).ready(function(){
+            //树的控制
+            var flag_treeDemo = true;
+            $(".container .buttons").on("click",function(){
+                if(flag_treeDemo){
+                    $("#treeDemo").css({display:"none"});
+                    $(".mySwiper").css({paddingLeft:0});
+                    flag_treeDemo = false;
+                }else{
+                    $("#treeDemo").css({display:"block"});
+                    $(".mySwiper").css({paddingLeft:"228px"});
+                    flag_treeDemo = true;
+                }
+            });
+            //            高度适应屏幕
+            var h =  $(window).height();
+            $("#treeDemo").css({height:h});
+            $("iframe").css({height:h});
+            //定义一个对象存储tree的name和iframe的id的映射
+            var treeIframe = {
+            	"斑马条纹":"zebra",
+            	"知识预览":"overview",
+                "换肤":"skinPeeler",
+                "3D旋转木马":"3DCarousel",
+                "放大镜":"magnifier",
+                "手风琴":"accordion",
+                "2D旋转":"2Drotate",
+                "360Demo":"360Demo"
+            }
+            function goToTop(name){
+                var _targetTop = $("#"+treeIframe[name]).offset().top;//获取位置
+                jQuery("html,body").animate({scrollTop:_targetTop},300);//跳转
+            }
+            function zTreeOnClick(event, treeId, treeNode) {
+                goToTop(treeNode.name);
+            };
+            var setting = {
+                callback: {
+                    onClick: zTreeOnClick
+                }
+            };
+            zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        });
+    </SCRIPT>
+</HEAD>
+<BODY>
+<!--树控制-->
+<div class = "container">
+    <p class = "buttons">
+        <!--点这里展开/拉起知识栈也可拖拽-->
+    </p>
+    <ul id="treeDemo" class="ztree"></ul>
+</div>
+<div class = "mySwiper">
+    <!--斑马条纹-->
+    <iframe id = "zebra" frameborder = "0" src = "zebra.html"></iframe>
+    <!--知识概略-->
+    <iframe id = "overview" frameborder = "0" src = "autoplay.html"></iframe>
+    <!--换肤-->
+    <iframe id = "skinPeeler" frameborder = "0" src = "skinPeeler.html"></iframe>
+    <!--旋转木马-->
+    <iframe id = "3DCarousel" frameborder = "0" src = "3DCarousel.html"></iframe>
+    <!--放大镜-->
+    <iframe id = "magnifier" frameborder = "0" src = "magnifier.html"></iframe>
+    <!--手风琴-->
+    <iframe id = "accordion" frameborder = "0" src = "accordion.html"></iframe>
+    <!--2D旋转-->
+    <iframe id = "2Drotate" frameborder = "0" src = "2Drotate.html"></iframe>
+    <!--360Demo-->
+    <iframe id = "360Demo" frameborder = "0" src = "360Demo.html"></iframe>
+</div>
+</BODY>
+</HTML>
